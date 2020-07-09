@@ -29,4 +29,35 @@ filter(gapminder, country == "Mexico" & year == 2002)
 b1 <- filter(gapminder, country == 'Brazil', year >= 1987, year <= 2007)
 mean(b1$lifeExp)
 ```
+```{r}
+gap_cambodia  <- gapminder %>% 
+  filter(country == "Cambodia") %>%
+  dplyr::select(-continent, -lifeExp)
+```
+```{r}
+gapminder %>% filter(continent == 'Asia', year == 2007) %>% mutate(pop1000 = pop / 1000)
+```
+```{r}
+gapminder %>%
+  filter(year == 2002) %>%
+  group_by(continent) %>% 
+  mutate(cont_pop = sum(pop))
+```
+```{r}
+continent_pop <- gapminder %>%
+  group_by(continent, year) %>%
+  summarize(cont_pop = sum(pop))
+continent_pop %>% ggplot(aes(x = year, y = cont_pop, col = continent))+
+  geom_line()
+```
+```{r}
+gapminder %>%
+  group_by(continent, year) %>%
+  summarize(cont_pop = sum(pop)) %>%
+  arrange(year)
+```
+```{r}
+gapdesc <- gapminder %>% arrange(desc(country))
+gapdesc %>% filter(continent == 'Asia') %>% group_by(year) %>% summarize(maxlife = max(lifeExp)) %>% arrange(desc(year)) %>% ungroup()
+```
 
