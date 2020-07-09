@@ -38,3 +38,45 @@ head(ca)
 ggplot(data = ca) +
   geom_point(aes(x = year, y = visitors))
 ```
+```{r}
+ggplot(data = se) +
+     geom_point(aes(x = year, y = visitors, color = park_name)) +
+     facet_wrap(~ state)
+```
+```{r}
+ggplot(se, aes(x = park_name, y = visitors)) + 
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+ggplot(data = acadia, aes(x = year, y = visitors)) + 
+  geom_point() +
+  geom_line( col = 'blue') +
+  geom_smooth(se = F, col = 'red') +
+  labs(title = "Acadia National Park Visitation",
+       y = "Visitation",
+       x = "Year") +
+  theme_bw()
+```
+```{r}
+my_plot <- ggplot(data = mass) + 
+      geom_bar(aes(x = type, fill = park_name, col = 'black')) +
+  labs(x = "", y = "")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 7))
+ggsave("name_of_file.png", my_plot, width = 15, height = 10)
+```
+```{r}
+pdf('figures/my_plot.pdf')
+ggplot(data = mass) + 
+      geom_bar(aes(x = type, fill = park_name, col = 'black')) +
+  labs(x = "", y = "")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 7))
+dev.off()
+```
+```{r}
+ggplot(iris, aes(Petal.Length, Petal.Width, 
+                 color = Species, shape = Species)) + 
+  geom_point(size = 3)
+ggsave("figures/myggplot.pdf", scale = 1/90, width = 780, height = 550)
+```
+
